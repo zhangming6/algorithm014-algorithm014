@@ -1,0 +1,19 @@
+https://leetcode-cn.com/problems/two-sum/
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer,Integer> aMap = new HashMap<>();
+        for(int i = 0; i<nums.length; i++){
+            aMap.put(nums[i],i);
+        }
+        for(int j = 0; j<nums.length; j++){
+            int dValue = target - nums[j];
+            if(aMap.containsKey(dValue) && aMap.get(dValue) != j){
+                return new int[] {j,aMap.get(dValue)};
+            }
+        }
+        return [0,0];
+    }
+}
+
+//1，将数组的下标作为value,数组的值作为key
+//2，循环数组用 target减去nums[i] ,然后用得到的差值查找map中有没有对应的key 

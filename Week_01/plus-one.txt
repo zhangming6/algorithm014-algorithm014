@@ -1,0 +1,20 @@
+https://leetcode-cn.com/problems/plus-one/
+class Solution {
+    public int[] plusOne(int[] digits) {
+        for(int i=digits.length-1; i>-1; i--){
+            int temp = digits[i]+1;
+            if(temp % 10 != 0){
+                digits[i]=temp;
+                return digits;
+            }
+            digits[i]=0;
+        }
+        int[] newNums =  new int[digits.length+1];
+               newNums[0]= 1;
+               return newNums;
+    }
+}
+
+//1，下标从大到小循环, 加1，%10取模如果等于0,则该下标对应的值为零，继续循环。
+//如果不等于零则，则加一返回
+//2，极端情况每个下标的值都是9 ，则new一个length+1的数组，0下标对应值1，其余为零
