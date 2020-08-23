@@ -1,0 +1,28 @@
+349. 两个数组的交集
+349. 两个数组的交集
+https://leetcode-cn.com/problems/intersection-of-two-arrays/
+class Solution {
+    public int[] setIntersection(HashSet<Integer> Set1,HashSet<Integer> Set2){
+        int[] output=new int[Set1.size()];
+        int index = 0;
+        for(Integer n: Set1){
+            if(Set2.contains(n)) output[index++] = n;
+        }
+        return Arrays.copyOf(output,index);
+    }
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> nums1Set = new HashSet<Integer>();
+        HashSet<Integer> nums2Set = new HashSet<Integer>();
+        for(int i = 0; i < nums1.length; i++){
+            nums1Set.add(Integer.valueOf(nums1[i]));
+        }
+        for(Integer j:nums2) nums2Set.add(j);
+        if(nums1Set.size()<nums2Set.size()){
+            return setIntersection(nums1Set,nums2Set);
+        }else{
+            return setIntersection(nums2Set,nums1Set);
+        }
+    }
+}
+//1，利用set不重复性先优化每个数组
+//2，比较 是否包含，生成返回的重复值的数组，此外也可以使用内置函数。 set1.retainAll(set2);
