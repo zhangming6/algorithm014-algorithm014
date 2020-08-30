@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ /**
+ * 思路：
+ * A 从树的root遍历树，
+ *
+ * 1,如果根等于 p/q ，并且其中一个子或者孙为p/q那么
+ * root.val == p.val || root.val == q.val  return root
+ *
+ * 2，他们有可能 同一个父节点下的两个节点，那么LCA就是他俩的亲爸爸
+ * 即 lson && rson    return root
+ *
+ * 3.还有可能 p的爸爸是q的爷爷，那么
+ * (root.val == p.val || root.val == q.val) && (lson || rson))
+ * lson && rson    return root
+ *
+ * 所以从头一直遍历到最子层，如果 某个节点== p/q 就往上层返回true ，否则为false
+ *
+ *
+ *
+ * B 所有的节点遍历一遍 记录它的的父 HashMap
+ *
+ * 节点p 向上查找他的父 依次记录
+ * 节点q 向上查找他的父  和p重合的第一个父 就是 LCA
+ *
+ */
+class Solution {
+    private TreeNode ans;
+    private boolean dfs(TreeNode root, TreeNode p, TreeNode q){
+        if(root == null) return false;
+        boolean lson = dfs(root.left,p,q);
+        boolean rson = dfs(root.right,p,q);
+        if((lson && rson)||((root.val == q.val || root.val == p.val)&&(lson||rson))){
+            ans = root;
+        }
+        return lson||rson||(root.val == q.val || root.val == p.val);
+    }
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        dfs(root,p,q);
+        return ans;
+    }
+}
