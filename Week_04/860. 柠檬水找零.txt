@@ -1,0 +1,36 @@
+class Solution {
+        public boolean lemonadeChange(int[] bills) {
+      return isSuit(bills);
+    }
+    private boolean isSuit(int[] bills){
+        boolean suit = true;
+        int sumMoney = 0;
+        int[] arrayRcord = {0,0,0};
+        for(int num: bills){
+            //if(num>sumMoney&&sumMoney!=0)  return false;
+            if(num == 10){
+                if(arrayRcord[0]>0) {
+                    arrayRcord[0] -= 1;
+                    arrayRcord[1] += 1;
+                }else {
+                    return false;
+                }
+            } else if(num == 20){
+                if(arrayRcord[1]>0&&arrayRcord[0]>0) {
+                    arrayRcord[0] -= 1;
+                    arrayRcord[1] -= 1;
+                    arrayRcord[2] += 1;
+                }else if(arrayRcord[0]>2){
+                    arrayRcord[0] -= 3;
+                }else{
+                    return false;
+                }
+            }else if(num == 5){
+                arrayRcord[0] += 1;
+            }
+            sumMoney += 5;
+        }
+        System.out.println(sumMoney);
+        return suit;
+    }
+}
